@@ -4,12 +4,31 @@ import { PokeCard } from "./PokeCard";
 export const PokeCards = () => {
 	const [addPokemonName, setAddPokemonName] = useState("");
 	const [searchPokemonName, setSearchPokemonName] = useState("");
-	const [pokemonsNames, setPokemonsNames] = useState([
-		"Pikachu",
-		"Charmander",
-		"Bulvasour",
-	]);
+	const [pokemons, setPokemons] = useState([]);
 	const [pokemonsFilteredState, setPokemonsFilteredState] = useState([]);
+
+	useEffect(() => {
+		const getPokemons = async () => {
+			let response = await fetch(
+				"https://pokeapi.co/api/v2/pokemon?limit=20&offset=0"
+			);
+			let data = await response.json();
+			setPokemons(data.results);
+		};
+
+		// CON THEN
+		// const getPokemons = () => {
+		// 	fetch("https://pokeapi.co/api/v2/pokemon?limit=20&offset=0")
+		// 		.then((response) => {
+		// 			return response.json();
+		// 		})
+		// 		.then((data) => {
+		// 			console.log(data);
+		// 		});
+		// };
+
+		getPokemons();
+	}, []);
 
 	useEffect(() => {
 		const handleSearch = () => {
@@ -50,20 +69,24 @@ export const PokeCards = () => {
 
 			<div className="row">
 				{pokemonsFilteredState.length > 0
-					? pokemonsFilteredState.map((pokemonName, index) => {
+					? pokemonsFilteredState.map((pokemon, index) => {
 							return (
 								<PokeCard
-									key={`${pokemonName}${index}`}
-									title={pokemonName}
+									key={`${pokemon.name}${index}`}
+									title={`${pokemon.name[0].toUpperCase()}${pokemon.name.slice(
+										1
+									)}`}
 									colSpacing="col-4"
 								/>
 							);
 					  })
-					: pokemonsNames.map((pokemonName, index) => {
+					: pokemons.map((pokemon, index) => {
 							return (
 								<PokeCard
-									key={`${pokemonName}${index}`}
-									title={pokemonName}
+									key={`${pokemon.name}${index}`}
+									title={`${pokemon.name[0].toUpperCase()}${pokemon.name.slice(
+										1
+									)}`}
 									colSpacing="col-4"
 								/>
 							);
