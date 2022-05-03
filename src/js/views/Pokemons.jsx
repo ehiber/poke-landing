@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { PokeCard } from "./PokeCard";
+import { PokeCard } from "../component/PokeCard";
 
-export const PokeCards = () => {
+export const Pokemons = () => {
 	const [addPokemonName, setAddPokemonName] = useState("");
 	const [searchPokemonName, setSearchPokemonName] = useState("");
 	const [pokemons, setPokemons] = useState([]);
@@ -13,7 +13,7 @@ export const PokeCards = () => {
 	useEffect(() => {
 		const getPokemons = async () => {
 			let response = await fetch(
-				"https://pokeapi.co/api/v2/pokemon?limit=20&offset=0"
+				"https://pokeapi.co/api/v2/pokemon?limit=100&offset=0"
 			);
 			let data = await response.json();
 			setPokemons(data.results);
@@ -112,6 +112,8 @@ export const PokeCards = () => {
 									1
 								)}`}
 								image={pokemon.image}
+								pokemon={pokemon}
+								idPokemon={pokemon.name}
 								colSpacing="col-4"
 							/>
 						);

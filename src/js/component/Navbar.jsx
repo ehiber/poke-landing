@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PokeLogo from "../../img/PokeLogo";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
 	const [input, setInput] = useState();
@@ -20,17 +21,14 @@ export const Navbar = () => {
 				</div>
 				<ul className="nav col-12 justify-content-center">
 					<li className="nav-item">
-						<a
-							className="nav-link active"
-							aria-current="page"
-							href="#">
+						<Link className="nav-link active" to="/">
 							Home
-						</a>
+						</Link>
 					</li>
 					<li className="nav-item">
-						<a className="nav-link" href="#">
+						<Link className="nav-link active" to="/pokemons">
 							Pokemons
-						</a>
+						</Link>
 					</li>
 					<label
 						className="label-search-pokemon"
